@@ -23,36 +23,19 @@ def parse_timer_file(file_path):
     return pd.DataFrame(data)
 
 # Function to create separate bar charts for each timer
-def plot_separate_bar_charts(dataframe):
-    unique_timers = dataframe['Timer'].unique()
-    for timer in unique_timers:
-        timer_data = dataframe[dataframe['Timer'] == timer]
-        
-        plt.figure(figsize=(10, 6))
-        plt.bar(timer_data.index, timer_data['Elapsed Time (us)'], color='skyblue')
-        plt.xlabel("Index")
-        plt.ylabel("Elapsed Time (us)")
-        plt.title(f"Bar Chart for Timer {timer}")
-        output_file = f"bar_chart_timer_{timer}.png"
-        plt.savefig(output_file)
-        print(f"Bar chart for Timer {timer} saved to {output_file}")
-        plt.close()
-
-# Function to create separate histograms for each timer
-def plot_separate_histograms(dataframe):
-    unique_timers = dataframe['Timer'].unique()
-    for timer in unique_timers:
-        timer_data = dataframe[dataframe['Timer'] == timer]
-        
-        plt.figure(figsize=(10, 6))
-        plt.hist(timer_data['Elapsed Time (us)'], bins=50, alpha=0.7, color='blue', edgecolor='black')
-        plt.xlabel("Elapsed Time (us)")
-        plt.ylabel("Frequency")
-        plt.title(f"Histogram for Timer {timer}")
-        output_file = f"histogram_timer_{timer}.png"
-        plt.savefig(output_file)
-        print(f"Histogram for Timer {timer} saved to {output_file}")
-        plt.close()
+def plot_bar_chart(timer, dataframe):
+    """Function to create and save a plot for a specific timer."""
+    timer_data = dataframe[dataframe['Timer'] == timer]
+    
+    plt.figure(figsize=(10, 6))
+    plt.bar(timer_data.index, timer_data['Elapsed Time (us)'], color='skyblue')
+    plt.xlabel("Index")
+    plt.ylabel("Elapsed Time (us)")
+    plt.title(f"Bar Chart for Timer {timer}")
+    output_file = f"bar_chart_timer_{timer}.png"
+    plt.savefig(output_file)
+    plt.close()
+    return f"Bar chart for Timer {timer} saved to {output_file}"
 
 def create_histogram(timer, dataframe):
     """Function to create and save a histogram for a specific timer."""
@@ -87,6 +70,15 @@ unique_timers = df['Timer'].unique()
 # Use ProcessPoolExecutor for parallel processing
 with ProcessPoolExecutor() as executor:
     results = executor.map(create_histogram, unique_timers, [df] * len(unique_timers))
+
+# Print results
+for result in results:
+    print(result)
+
+
+# Use ProcessPoolExecutor for parallel processing
+with ProcessPoolExecutor() as executor:
+    results = executor.map(plot_bar_chart, unique_timers, [df] * len(unique_timers))
 
 # Print results
 for result in results:
