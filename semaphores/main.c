@@ -1,11 +1,18 @@
 #include "semahores.h"
+#include <zephyr/logging/log.h>
+#include <zephyr/sys/printk.h>
+#include <zephyr/kernel.h>
+
+LOG_MODULE_REGISTER(main, LOG_LEVEL_INF);
 
 #define MY_STACK_SIZE 500
 #define MY_PRIORITY 5
 #define TIMER1_Count 100
 
+#define DEBUG_PRINT1(...) printk(__VA_ARGS__)
+
 int main(void) {
-    printk("Starting jitter timers...\n");
+
     k_timer_start(&timer_1, K_USEC(TIMER1_Count), K_USEC(TIMER1_Count));
 
     k_thread_start(task100_id);
@@ -17,7 +24,6 @@ int main(void) {
 
     while (1)
     {
-        /* code */
+        k_sleep(K_SECONDS(2)); 
     }
-    
 }

@@ -19,11 +19,11 @@ void Task1000(void);
 void Task2000(void);
 void Task5000(void);
 
-K_THREAD_DEFINE(task100_id, 1024, Task100, NULL, NULL, NULL, 1, 0, 0);
-K_THREAD_DEFINE(task300_id, 1024, Task300, NULL, NULL, NULL, 1, 0, 0);
-K_THREAD_DEFINE(task500_id, 1024, Task500, NULL, NULL, NULL, 1, 0, 0);
-K_THREAD_DEFINE(task1000_id, 1024, Task1000, NULL, NULL, NULL, 1, 0, 0);
-K_THREAD_DEFINE(task2000_id, 1024, Task2000, NULL, NULL, NULL, 1, 0, 0);
+K_THREAD_DEFINE(task100_id, 1024, Task100, NULL, NULL, NULL, 6, 0, 0);
+K_THREAD_DEFINE(task300_id, 1024, Task300, NULL, NULL, NULL, 5, 0, 0);
+K_THREAD_DEFINE(task500_id, 1024, Task500, NULL, NULL, NULL, 4, 0, 0);
+K_THREAD_DEFINE(task1000_id, 1024, Task1000, NULL, NULL, NULL, 3, 0, 0);
+K_THREAD_DEFINE(task2000_id, 1024, Task2000, NULL, NULL, NULL, 2, 0, 0);
 K_THREAD_DEFINE(task5000_id, 1024, Task5000, NULL, NULL, NULL, 1, 0, 0);
 
 void timestamp(uint8_t clock_nr);
